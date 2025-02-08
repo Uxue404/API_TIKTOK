@@ -33,5 +33,5 @@ def download_video():
     return send_file(filename, as_attachment=True)
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 50))  # Render asigna un puerto automáticamente
+    port = int(os.environ.get("PORT", 5000))  # Render asigna un puerto automáticamente
     app.run(debug=True, host="0.0.0.0", port=port)
