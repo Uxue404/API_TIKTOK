@@ -10,9 +10,12 @@ os.makedirs(DOWNLOAD_FOLDER, exist_ok=True)
 
 @app.route("/download", methods=["POST"])
 def download_video():
+    print("Recibiendo solicitud de descarga")
     data = request.get_json()
     video_url = data.get("url")
-    
+    print(f"URL recibida: {video_url}")
+
+
     if not video_url:
         return jsonify({"error": "No URL provided"}), 400
 
@@ -29,8 +32,9 @@ def download_video():
     if not os.path.exists(filename):
         return jsonify({"error": "File not found"}), 500
 
-
-    return send_file(filename, as_attachment=True)
+    response = send_file(filename ,as_attachment=True)
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    return response
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))  # Render asigna un puerto automáticamente
