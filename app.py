@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify, send_file
 import yt_dlp
 import os
+from flask_cors import CORS 
+CORS(app)
 
 app = Flask(__name__)
 DOWNLOAD_FOLDER = "downloads"
