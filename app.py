@@ -25,7 +25,13 @@ def download_video():
         info = ydl.extract_info(video_url, download=True)
         filename = ydl.prepare_filename(info)
 
+        # Asegurar que el archivo existe antes de enviarlo
+    if not os.path.exists(filename):
+        return jsonify({"error": "File not found"}), 500
+
+
     return send_file(filename, as_attachment=True)
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    port = int(os.environ.get("PORT", 10000))  # Render asigna un puerto automáticamente
+    app.run(debug=True, host="0.0.0.0", port=port)
